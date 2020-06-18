@@ -21,6 +21,7 @@
      <select name="" v-model="blog.author">
        <option value="authors" v-for="(author, index) in Authors" :key="index"> {{ author }}</option>
      </select>
+     <button @click="post"></button>
    </form>
 
    <div id="preview">
@@ -49,6 +50,15 @@
          author: ''
        },
        Authors: ['TraversyMedia', 'Grafikart', 'TheNetNinja']
+     }
+   },
+   methods: {
+     post() {
+       this.$http.post('https://jsonplaceholder.typicode.com/posts', {
+         title: this.blog.title,
+         body: this.blog.content,
+         userId: 1
+       })
      }
    }
   }
