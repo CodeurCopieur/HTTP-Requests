@@ -1,7 +1,7 @@
 <template>
  <div id="add-blog">
    <h2>New Blog Post</h2>
-   <form>
+   <form v-if="!submitted">
      <label>Blog Titre</label>
      <input type="text" v-model.lazy="blog.title">
      <label>Blog Content</label>
@@ -21,8 +21,12 @@
      <select name="" v-model="blog.author">
        <option value="authors" v-for="(author, index) in Authors" :key="index"> {{ author }}</option>
      </select>
-     
+     <button @click.prevent="post">Add Post</button>
    </form>
+
+   <div v-if="submitted">
+     <h3>Merci pour l'ajout de post</h3>
+   </div>
 
    <div id="preview">
      <h3>Preview Blog</h3>
@@ -34,7 +38,7 @@
      </ul>
      <p>Blog Author : {{ blog.author }}</p>
    </div>
-   <button @click="post">Add Post</button>
+   
  </div>
 </template>
 
@@ -50,7 +54,8 @@
          categories: [],
          author: ''
        },
-       Authors: ['TraversyMedia', 'Grafikart', 'TheNetNinja']
+       Authors: ['TraversyMedia', 'Grafikart', 'TheNetNinja'],
+       submitted: false
      }
    },
    methods: {
@@ -61,7 +66,7 @@
          userId: 1
        }).then( data => {
          console.log(data);
-         
+         this.submitted = true
        });
      }
    }
