@@ -21,7 +21,7 @@
      <select name="" v-model="blog.author">
        <option value="authors" v-for="(author, index) in Authors" :key="index"> {{ author }}</option>
      </select>
-     <button @click="post"></button>
+     
    </form>
 
    <div id="preview">
@@ -34,6 +34,7 @@
      </ul>
      <p>Blog Author : {{ blog.author }}</p>
    </div>
+   <button @click="post">Add Post</button>
  </div>
 </template>
 
@@ -58,7 +59,10 @@
          title: this.blog.title,
          body: this.blog.content,
          userId: 1
-       })
+       }).then( data => {
+         console.log(data);
+         
+       });
      }
    }
   }
